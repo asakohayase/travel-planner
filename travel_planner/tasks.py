@@ -47,11 +47,11 @@ Key Steps for Task Creation:
 # This is an example of how to define custom tasks.
 # You can define as many tasks as you want.
 # You can also define custom agents in agents.py
-class CustomTasks:
+class TravelTasks:
     def __tip_section(self):
         return "If you do your BEST WORK, I'll give you a $10,000 commission!"
 
-    def plan_itinerary(self, agent, city, travel_dates, interests):
+    def plan_itinerary(self, agent, cities, travel_dates, interests):
         return Task(description=dedent(f'''
       **Task**: Develop a 7-Day Travel Itinerary
       **Description**: Expand the city guide into a full 7-day travel itinerary with detailed 
@@ -60,13 +60,19 @@ class CustomTasks:
         and actual restaurants to go to. This itinerary should cover all aspects of the trip, 
         from arrival to departure, integrating the city guide information with practical travel logistics.
       **Parameters**: 
-      - City: {city}
+      - City: {cities}
       - Trip Date: {travel_dates}
       - Traveler Interests: {interests}
 
        **Note**: {self.__tip_section()}
 
-      '''), agent=agent)
+      '''), 
+         expected_output=dedent("""
+                Here is a suggested itinerary for your trip:
+
+                [Provide a detailed day-by-day itinerary based on the trip details and destination. Include recommendations for activities, restaurants, accommodation, and any other relevant information.]
+        """),
+      agent=agent)
 
     def identify_city(self, agent, origin, cities ,interests, travel_dates):
         return Task(
@@ -90,6 +96,12 @@ class CustomTasks:
                     **Note**: {self.__tip_section()}
         """
             ),
+            expected_output=dedent("""
+                The best city for the trip is [City Name].
+
+                [Provide a detailed report on the chosen city, including actual flight costs, weather forecast, and attractions based on the given parameters.]
+            """),
+
             agent=agent,
         )
     
@@ -111,5 +123,9 @@ class CustomTasks:
                     **Note**: {self.__tip_section()}
         """
             ),
+            expected_output=dedent("""
+                [Provide an in-depth guide for the city, including key attractions, local customs, special events, daily activity recommendations, hidden gems, cultural hotspots, must-visit landmarks, weather forecasts, and high-level costs based on the given parameters.]
+        """),
+
             agent=agent,
         )
