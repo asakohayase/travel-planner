@@ -1,7 +1,8 @@
+import os
 from crewai import Agent
 from textwrap import dedent
-from langchain.llms import OpenAI, Ollama
 from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 from tools.search_tools import SearchTools
 from tools.calculator_tools import CalculatorTools
@@ -33,20 +34,29 @@ Notes:
 - Backstory should be their resume
 """
 
+
 class TravelAgents:
     def __init__(self):
-        self.OpenAIGPT35 = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.7)
+        self.OpenAIGPT35 = ChatOpenAI(
+            model_name="gpt-3.5-turbo", temperature=0.7)
         self.OpenAIGPT4 = ChatOpenAI(model_name="gpt-4", temperature=0.7)
-        self.Ollama = Ollama(model="openhermes")
+        self.Gemini15=ChatGoogleGenerativeAI(model="gemini-1.5-flash",verbose=True, 
+temperature=0.5,google_api_key=os.getenv("GOOGLE_API_KEY"))
 
     def expert_travel_agent(self):
         return Agent(
             role="Expert Travel Agent",
-            backstory=dedent(f"""Expert in travel planning and logistics. I have decade of experience making travel itenaries"""),
+            backstory=dedent(
+                f"""Expert in travel planning and logistics. 
+                I have decades of expereince making travel iteneraries."""),
             goal=dedent(f"""
-                        Create a 7-day travel itinerary with detailed per-day plans,including budget, packing suggestions, and safety tips.
+                        Create a 7-day travel itinerary with detailed per-day plans,
+                        include budget, packing suggestions, and safety tips.
                         """),
-            tools=[SearchTools.search_internet, CalculatorTools.calculate],
+            tools=[
+                SearchTools.search_internet,
+                CalculatorTools.calculate
+            ],
             verbose=True,
             llm=self.OpenAIGPT35,
         )
@@ -54,20 +64,23 @@ class TravelAgents:
     def city_selection_expert(self):
         return Agent(
             role="City Selection Expert",
-            backstory=dedent(f"""Expert at analyzing travel data to pick ideal destinations"""),
-            goal=dedent(f"""Select the best cities based on weather, season, prices, and traveler interests"""),
+            backstory=dedent(
+                f"""Expert at analyzing travel data to pick ideal destinations"""),
+            goal=dedent(
+                f"""Select the best cities based on weather, season, prices, and traveler interests"""),
             tools=[SearchTools.search_internet],
             verbose=True,
             llm=self.OpenAIGPT35,
         )
-    
+
     def local_tour_guide(self):
         return Agent(
             role="Local Tour Guide",
             backstory=dedent(f"""Knowledgeable local guide with extensive information
         about the city, it's attractions and customs"""),
-            goal=dedent(f"""Provide the BEST insights about the selected city"""),
+            goal=dedent(
+                f"""Provide the BEST insights about the selected city"""),
             tools=[SearchTools.search_internet],
             verbose=True,
             llm=self.OpenAIGPT35,
-    )
+        )
