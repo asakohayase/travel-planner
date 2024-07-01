@@ -3,6 +3,7 @@ from textwrap import dedent
 from agents import TravelAgents
 from tasks import TravelTasks
 from tools.search_tools import SearchTools
+from tools.search_hotels_tools import SearchHotelsTool
 from tools.calculator_tools import CalculatorTools
 
 from dotenv import load_dotenv
@@ -24,17 +25,13 @@ class TripCrew:
 
         # Define your custom tools here
         search_tools = SearchTools()
+        # search_hotel_tools = SearchHotelsTool()
         calculator_tools = CalculatorTools()
 
         # Define your custom agents and tasks here
-        expert_travel_agent = agents.expert_travel_agent(search_tools, calculator_tools)
         city_selection_expert = agents.city_selection_expert(search_tools)
         local_tour_guide = agents.local_tour_guide(search_tools)
-
-        # Custom tasks include agent name and variables as input
-        plan_itinerary = tasks.plan_itinerary(
-            expert_travel_agent, self.cities, self.date_range, self.interests
-        )
+        expert_travel_agent = agents.expert_travel_agent(calculator_tools)
 
         identify_city = tasks.identify_city(
             city_selection_expert,
@@ -48,10 +45,15 @@ class TripCrew:
             local_tour_guide, self.cities, self.date_range, self.interests
         )
 
+        # Custom tasks include agent name and variables as input
+        plan_itinerary = tasks.plan_itinerary(
+            expert_travel_agent, self.cities, self.date_range, self.interests
+        )
+
         # Define your custom crew here
         crew = Crew(
-            agents=[expert_travel_agent, city_selection_expert, local_tour_guide],
-            tasks=[plan_itinerary, identify_city, gather_city_info],
+            agents=[city_selection_expert, local_tour_guide, expert_travel_agent],
+            tasks=[identify_city, gather_city_info, plan_itinerary],
             verbose=True,
         )
 
@@ -80,7 +82,7 @@ if __name__ == "__main__":
     date_range = input(
         dedent(
             """
-      What is the date range you are interested in traveling?
+      What is the date range you are interested in traveling (YYYY-MM-DD format)?
     """
         )
     )

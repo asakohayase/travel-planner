@@ -54,29 +54,6 @@ class TravelTasks:
     def __tip_section(self):
         return "If you do your BEST WORK, I'll give you a $10,000 commission!"
 
-    def plan_itinerary(self, agent, city, travel_dates, interests):
-        return Task(
-            description=dedent(
-                f"""
-            **Task**: Develop a 7-Day Travel Itinerary
-            **Description**: Expand the city guide into a full 7-day travel itinerary with detailed 
-                per-day plans, including weather forecasts, places to eat, packing suggestions, 
-                and a budget breakdown. You MUST suggest actual places to visit, actual hotels to stay, 
-                and actual restaurants to go to. This itinerary should cover all aspects of the trip, 
-                from arrival to departure, integrating the city guide information with practical travel logistics.
-
-            **Parameters**: 
-            - City: {city}
-            - Trip Date: {travel_dates}
-            - Traveler Interests: {interests}
-
-            **Note**: {self.__tip_section()}
-        """
-            ),
-            expected_output="A comprehensive day-by-day itinerary. This should include specific details about accommodations, activities, and transportation, all tailored to the client's preferences and budget.",
-            agent=agent,
-        )
-
     def identify_city(self, agent, origin, cities, interests, travel_dates):
         return Task(
             description=dedent(
@@ -121,6 +98,29 @@ class TravelTasks:
                     **Note**: {self.__tip_section()}
         """
             ),
-            expected_output="A detailed guide for each selected city. This should include information about lesser-known attractions, local customs, optimal times to visit specific sites, and insider tips for an authentic experience.",
+            expected_output="A detailed per-day guide for each selected city for the given date range. This should include information about lesser-known attractions, local customs, optimal times to visit specific sites, and insider tips for an authentic experience.",
+            agent=agent,
+        )
+
+    def plan_itinerary(self, agent, city, travel_dates, interests):
+        return Task(
+            description=dedent(
+                f"""
+            **Task**: Develop a Per Day Travel Itinerary for The Given Date Range
+            **Description**: Expand the city guide into a full travel itinerary for the given date range with detailed 
+                per-day plans, including weather forecasts, places to eat, packing suggestions, 
+                and a budget breakdown. You MUST suggest actual places to visit, actual hotels to stay, 
+                and actual restaurants to go to. This itinerary should cover all aspects of the trip, 
+                from arrival to departure, integrating the city guide information with practical travel logistics.
+
+            **Parameters**: 
+            - City: {city}
+            - Trip Date: {travel_dates}
+            - Traveler Interests: {interests}
+
+            **Note**: {self.__tip_section()}
+        """
+            ),
+            expected_output="A comprehensive day-by-day itinerary. This should include specific details about accommodations, activities, and transportation, all tailored to the client's preferences and budget.",
             agent=agent,
         )
