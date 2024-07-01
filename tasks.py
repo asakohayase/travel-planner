@@ -86,7 +86,7 @@ class TravelTasks:
                 f"""
                     **Task**:  Gather In-depth City Guide Information
                     **Description**: Compile an in-depth guide for the selected city, gathering information about 
-                        key attractions, local customs, special events, and daily activity recommendations. 
+                        key attractions, local customs, special events, hotels and daily activity recommendations. 
                         This guide should provide a thorough overview of what the city has to offer, including 
                         hidden gems, cultural hotspots, must-visit landmarks, weather forecasts, and high-level costs.
 

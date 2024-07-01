@@ -25,12 +25,14 @@ class TripCrew:
 
         # Define your custom tools here
         search_tools = SearchTools()
-        # search_hotel_tools = SearchHotelsTool()
+        search_hotel_tools = SearchHotelsTool()
         calculator_tools = CalculatorTools()
 
         # Define your custom agents and tasks here
-        city_selection_expert = agents.city_selection_expert(search_tools)
-        local_tour_guide = agents.local_tour_guide(search_tools)
+        city_selection_expert = agents.city_selection_expert(
+            search_tools, search_hotel_tools
+        )
+        local_tour_guide = agents.local_tour_guide(search_tools, search_hotel_tools)
         expert_travel_agent = agents.expert_travel_agent(calculator_tools)
 
         identify_city = tasks.identify_city(

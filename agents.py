@@ -36,7 +36,7 @@ class TravelAgents:
         self.OpenAIGPT35 = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.7)
         self.OpenAIGPT4 = ChatOpenAI(model_name="gpt-4", temperature=0.7)
 
-    def city_selection_expert(self, search_tools):
+    def city_selection_expert(self, search_tools, search_hotels_tools):
         return Agent(
             role="City Selection Expert",
             backstory=dedent(
@@ -45,13 +45,13 @@ class TravelAgents:
             goal=dedent(
                 f"""Select the best cities based on weather, season, prices, and traveler interests"""
             ),
-            tools=[search_tools],
+            tools=[search_tools, search_hotels_tools],
             verbose=True,
             llm=self.OpenAIGPT35,
             max_iter=3,
         )
 
-    def local_tour_guide(self, search_tools):
+    def local_tour_guide(self, search_tools, search_hotels_tools):
         return Agent(
             role="Local Tour Guide",
             backstory=dedent(
@@ -59,10 +59,11 @@ class TravelAgents:
             about the city, it's attractions and customs"""
             ),
             goal=dedent(f"""Provide the BEST insights about the selected city"""),
-            tools=[search_tools],
+            tools=[search_tools, search_hotels_tools],
             verbose=True,
             llm=self.OpenAIGPT35,
             max_iter=3,
+            allow_delegation=False,
         )
 
     def expert_travel_agent(self, calculator_tools):
