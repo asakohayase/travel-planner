@@ -47,7 +47,7 @@ To get a local copy up and running follow these simple example steps.
 
 1. Get API Keys at the following websites
    * [https://platform.openai.com/](https://platform.openai.com/)
-   * [https://smith.langchain.com/](https://serper.dev/)
+   * [https://serper.dev/](https://serper.dev/)
    * [https://rapidapi.com/](https://rapidapi.com/)
    
 2. Clone the repo
