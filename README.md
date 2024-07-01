@@ -1,7 +1,11 @@
 <a name="readme-top"></a>
 
-<div align="center">
-  <h3 align="center">Travel Planner</h3>
+<h1>Travel Planner</h1>
+
+<div align="left">
+  <p>
+   Travel Planner is an intelligent application that helps users discover their ideal destination and plan a detailed itinerary for their trip.
+  </p>
 </div>
 
 
@@ -10,21 +14,17 @@
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li><a href="#features">Features</a> </li>
+    <li><a href="#built-with">Built With</a></li>
+    <li><a href="#contributing">Getting Started</a></li>
+    <li><a href="#contact">Acknowledgments</a></li>
   </ol>
 </details>
 
+## Features
+
+1. Best City Recommendation: Input multiple cities you're considering, and our agents will analyze various factors to suggest the best city for your visit.
+2. Customized Itinerary Generation: Provide your travel dates, and receive a day-by-day itinerary tailored to your chosen destination.
 
 
 ### Built With
