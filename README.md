@@ -27,6 +27,7 @@
 2. Customized Itinerary Generation: Provide your travel dates, and receive a day-by-day itinerary tailored to your chosen destination.
 
 
+
 ## Built With
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
